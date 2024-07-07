@@ -5,6 +5,7 @@ const asyncHandler=(fn)=>async(req,res,next)=>{
         console.log("error occur while handling function")
     }
 }
+export default asyncHandler;
 
 
    
