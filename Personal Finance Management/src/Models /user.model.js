@@ -46,7 +46,7 @@ UserSchema.pre('save', function (next) {
     }).catch(next);
 })
 UserSchema.methods.generateAccessToken = function () {
-    jwt.sign({
+   return jwt.sign({
         _id: this._id,
         name: this.name,
         email: this.email
@@ -57,7 +57,7 @@ UserSchema.methods.generateAccessToken = function () {
         })
 }
 UserSchema.methods.generateAccessToken = function () {
-    jwt.sign({
+    return  jwt.sign({
         _id: this._id,
         name: this.name,
         email: this.email
