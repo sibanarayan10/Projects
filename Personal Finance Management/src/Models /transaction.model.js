@@ -27,3 +27,4 @@ const trasactionSchema=new Schema({
         default: Date.now
       }
 },{timestamps:true})
+export const Transaction=mongoose.model('Transaction',trasactionSchema);
