@@ -1,4 +1,4 @@
-import { User } from "../models/userModel";
+import { User } from "../Models /user.model";
 import { ApiError } from "../utils/ApiError";
 import { asyncHandler } from "../utils/asyncHandler";
 

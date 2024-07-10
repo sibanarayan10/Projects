@@ -1,4 +1,5 @@
-import mongoose from "mongoose";
+import mongoose, { Schema } from "mongoose";
+import { Transaction } from "./transaction.model";
 
 
 // const {Schema}=mongoose;
@@ -32,7 +33,12 @@ const UserSchema = new mongoose.Schema({
     },
     refreshToken: {
         type: String
+    },
+    transactionHistory:[
+        {type:Schema.Types.ObejctId,
+        ref:Transaction
     }
+    ],
 
 })
 

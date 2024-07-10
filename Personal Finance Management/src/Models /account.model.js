@@ -4,18 +4,20 @@ const accountSchema=new Schema({
     name:{
         type:String,
         required:true,
-        unique:true,
+   
     },
     owner:{
     type:Schema.Types.ObjectId,
     ref:User,
-    required :true,
+    required:true,
     },
     balance:{
     type:Number,
+    required :true,
 
     }
 
 },{timestamps:true})
+accountSchema.index({name: 1, owner: 1 }, { unique: true });
 
 export const Account=mongoose.model(Account,accountSchema)
