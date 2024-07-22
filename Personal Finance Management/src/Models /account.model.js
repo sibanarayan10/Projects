@@ -9,7 +9,7 @@ const accountSchema=new Schema({
     owner:{
     type:Schema.Types.ObjectId,
     ref:User,
-    required:true,
+    
     },
     balance:{
     type:Number,

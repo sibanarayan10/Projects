@@ -5,7 +5,11 @@ import { connectDB } from "./src/Db/dbConnection.js";
 dotenv.config({
     path: './.env'
 })
+
 const app=express();
+app.get('/',(req,res)=>{
+    res.send("this route is working")
+})
 const port =process.env.PORT;
 connectDB().then(()=>{
     app.listen(process.env.PORT,()=>{
