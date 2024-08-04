@@ -1,14 +1,15 @@
 import mongoose, {Schema} from "mongoose"
+import { Channel } from "./channel.model"
 
 const subscriptionSchema = new Schema({
-    subscribedBy: {
+    subscribedBy: [{
         type: Schema.Types.ObjectId, 
         ref: "User"
-    },
-    subscribedTo: {
+    }],
+    subscribedTo: [{
         type: Schema.Types.ObjectId, 
-        ref: "User"
-    }
+        ref: "Channel"
+    }]
 }, {timestamps: true})
 
 
