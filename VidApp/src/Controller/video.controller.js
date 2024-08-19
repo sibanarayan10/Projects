@@ -26,7 +26,27 @@ return res.status(200).json(new ApiResponse(200,videos,"successfull"));
 })
 
 const publishAVideo = asyncHandler(async (req, res) => {
-    const { title, description } = req.body
+    const {title, description } = req.body
+    // if([videoFile,thumbnail,title, description].some((item)=>{item.trim()===""}))
+
+    const thumbnailPath=req.files.thumbnail[0].path;
+    const videopath=req.files.videoFile[0].path;
+    try{
+    const Image=await uploadOnCloudinary(thumbnailPath);
+    const video=await uploadOnCloudinary(videopath);
+    const newVideo=new Video({
+        videoFile:video.url,
+        thumbnail:Image.url,
+        title:title,
+        desc:description
+    })
+    await newVideo.save();
+return res.status(200).json(200,newVideo,"video published successfully");
+}
+    catch(error){
+        throw new ApiError(500,error,"Failed to upload the files");
+    }
+   
     // TODO: get video, upload to cloudinary, create video
 })
 
@@ -39,7 +59,7 @@ const getVideoById = asyncHandler(async (req, res) => {
     return res.
         status(200).
         json(new ApiResponse(200, video, "video fetched successfully"))
-    //TODO: get video by id
+
 })
 
 const updateVideo = asyncHandler(async (req, res) => {
@@ -51,15 +71,20 @@ const updateVideo = asyncHandler(async (req, res) => {
     if (!videoId) {
         throw new ApiError(405, "No video exist of that type");
     }
-    const Video = await Video.find({ _id: videoId });
-    Video.title = title;
-    Video.description = desc;
-    Video.thumbnail = thumbnail;
+    const Videofile = await Video.find({ _id: videoId });
+    const videoPath=req.files.thumbnail[0].path;
+    const video=await uploadOnCloudinary(videoPath);
+
+
+    Videofile.title = title;
+    Videofile.description = desc;
+    Videofile.thumbnail = video.url;
+    await Videofile.save();
 
     //TODO: update video details like title, description, thumbnail
     return res
         .status(200)
-        .json(new ApiResponse(200, user, "Account details updated successfully"))
+        .json(new ApiResponse(200, Videofile, "Account details updated successfully"))
 
 })
 
@@ -70,7 +95,7 @@ const deleteVideo = asyncHandler(async (req, res) => {
     }
     const count = await Video.deleteMany({ _id: videoId });
 
-    //TODO: delete video
+    
 })
 
 const togglePublishStatus = asyncHandler(async (req, res) => {

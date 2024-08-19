@@ -1,5 +1,5 @@
-import { User } from "./user.model";
-import mongoose,{Schema} from mongoose;
+import { User } from "./user.model.js";
+import mongoose,{Schema} from 'mongoose';
 const ChannelSchema=new Schema({
   name:{
     type:String,

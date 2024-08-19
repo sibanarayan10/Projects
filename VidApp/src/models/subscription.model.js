@@ -1,5 +1,5 @@
 import mongoose, {Schema} from "mongoose"
-import { Channel } from "./channel.model"
+import { Channel } from "./channel.model.js"
 
 const subscriptionSchema = new Schema({
     subscribedBy: [{
